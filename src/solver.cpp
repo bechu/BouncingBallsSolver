@@ -25,7 +25,7 @@ namespace bbs
 Solver::Solution Solver::run(Board const& board)
 {
   discoverSolution(board);
-  return  takeDecision(board);
+  return takeDecision(board);
 }
 
 void Solver::discoverSolution(Board const& board)
@@ -45,18 +45,28 @@ Solver::Solution Solver::onlyStrike(Board const& board)
 {
   int score = std::numeric_limits<int>::min();
   Solution best = solutions_[0];
+  int count = std::numeric_limits<int>::min();
 
   for(auto solution : solutions_)
   {
+    if(solution.score == score && solution.rebound == 0
+            && solution.balls.size() > count)
+    {
+      best = solution;
+      score = solution.score;
+      count = solution.balls.size();
+    }
     if(solution.score == score && solution.rebound == 0)
     {
       best = solution;
       score = solution.score;
+      count = solution.balls.size();
     }
     else if(solution.score > score)
     {
       best = solution;
       score = solution.score;
+      count = solution.balls.size();
     }
   }
   return best;
@@ -132,7 +142,7 @@ bool Solver::collision(const Board &board,
         }
       }
 
-      if(solution.y > board.height * 0.9)
+      if(solution.y > board.height * 0.8)
         solution.score = -100;
 
       result = p;
@@ -160,8 +170,8 @@ bool Solver::testTrajectory(cv::Point const& origin, float angle, const Board &b
   bool tobe_continued = false;
   if(dest.x <= origin.x)
   {
-    tobe_continued = intersection(cv::Point(board.radius+5, 0),
-                                  cv::Point(board.radius+5, board.height),
+    tobe_continued = intersection(cv::Point(board.radius+1, 0),
+                                  cv::Point(board.radius+1, board.height),
                                   origin, dest, limit);
   }
   else

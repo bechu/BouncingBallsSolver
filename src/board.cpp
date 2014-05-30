@@ -276,7 +276,7 @@ bool Board::find(cv::Point const& target, Ball::PtrList & myballs) const
     for(auto b : *bb)
     {
       if(b->disable == true) continue ;
-      if(circlesColliding(b->point.x, b->point.y, radius*0.6, target.x, target.y, radius*0.8))
+      if(circlesColliding(b->point.x, b->point.y, radius*0.7, target.x, target.y, radius*0.8))
       {
         myballs.push_back(b);
       }

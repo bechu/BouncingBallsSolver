@@ -62,22 +62,28 @@ int main()
 
         // and apply
         display_device.mouseMoveAndClick(
-              game_rect.x + board.player.point.x + 20 * std::cos(solution.angle),
-              game_rect.y + board.player.point.y + 20 * std::sin(solution.angle));
+              game_rect.x + board.player.point.x + 100 * std::cos(solution.angle),
+              game_rect.y + board.player.point.y + 100 * std::sin(solution.angle));
 
-        //std::stringstream ss;
-        //ss << "./out/"<<counter++<<".png";
-        //board.drawBall(screenshot);
-        //solver.draw(screenshot, solution, board);
-        //cv::imwrite(ss.str(), screenshot);
+       // std::stringstream ss;
+       // ss << "./out/"<<counter++<<".png";
+       // board.drawBall(screenshot);
+       // solver.draw(screenshot, solution, board);
+       // cv::imwrite(ss.str(), screenshot);
         int overloop = 0;
         while(1)
         {
-          double angle = board_detector.getPlayerAngle(display_device.capture(game_rect));
+            screenshot = display_device.capture(game_rect);
+          double angle = board_detector.getPlayerAngle(screenshot);
+       // std::stringstream ss;
+       // ss << "./out/"<<counter++<<".png";
+       // board.drawBall(screenshot);
+       // solver.draw(screenshot, solution, board);
+       // cv::imwrite(ss.str(), screenshot);
           if(std::fabs(solution.angle-angle) < 0.1)
             break;
-          usleep(10);
-          if(overloop++ > 5)
+          usleep(20);
+          if(overloop++ > 15)
           {
             std::cerr<<"oups error angle ..."<<std::endl;
             std::cerr<<"solution angle : "<<solution.angle<<" and target angle :"<<angle<<std::endl;
