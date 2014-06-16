@@ -3,7 +3,7 @@ compiler:
   - gcc
 before_script:
   - sudo apt-get install libx11-dev
-  - sudo apt-get install opencv2
+  - sudo apt-get install libcv-dev
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get -qq update
   - sudo apt-get -qq install g++-4.7
