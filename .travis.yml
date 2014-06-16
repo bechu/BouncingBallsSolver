@@ -2,6 +2,7 @@ language: cpp
 compiler:
   - gcc
 before_script:
+  - sudo apt-get -qq update
   - sudo apt-get install libx11-dev python-numpy libavcodec-dev libavformat-dev libswscale-dev python-dev
   - git clone https://github.com/Itseez/opencv.git
   - cd opencv
