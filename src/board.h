@@ -36,8 +36,8 @@ public:
   {
     typedef std::vector<Ball> List;
     typedef std::vector<Ball*> PtrList;
-    Ball();
-    Ball(cv::Point const& point, unsigned char type);
+    //Ball();
+    explicit Ball(cv::Point const& point=cv::Point(), unsigned char type=0);
 
     inline bool is_left_of(Ball const* ball)
     {

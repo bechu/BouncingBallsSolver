@@ -51,10 +51,6 @@ Board::Ball::Ball(cv::Point const& point, unsigned char type)
 {
 }
 
-Board::Ball::Ball()
-  : Ball(cv::Point(), 0)
-{
-}
 
 void Board::clear()
 {
