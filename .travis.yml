@@ -5,6 +5,7 @@ before_script:
   - sudo apt-get install libx11-dev
   - git clone https://github.com/Itseez/opencv.git
   - cd opencv
+  - git checkout 2.4
   - mkdir build
   - cd build
   - cmake ..
