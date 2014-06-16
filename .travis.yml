@@ -3,15 +3,7 @@ compiler:
   - gcc
 before_script:
   - sudo apt-get -qq update
-  - sudo apt-get install libx11-dev python-numpy libavcodec-dev libavformat-dev libswscale-dev python-dev
-  - git clone https://github.com/Itseez/opencv.git
-  - cd opencv
-  - git checkout 2.4
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make -j4
-  - sudo make -j4 install
+  - sudo apt-get install libx11-dev libcv-dev
 
 script:
   - mkdir build
