@@ -1,4 +1,4 @@
-Bouncing Balls Solver
+Bouncing Balls Solver [![Build Status](https://travis-ci.org/bechu/BouncingBallsSolver.png?branch=master)](https://travis-ci.org/bechu/BouncingBallsSolver)
 =====================
 
 This is a solver for the boucing balls game on facebook.
