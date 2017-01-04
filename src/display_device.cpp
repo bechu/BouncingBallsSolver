@@ -116,7 +116,7 @@ void DisplayDevice::moveTo(int x, int y)
 {
   XWarpPointer(display_, None, DefaultRootWindow(display_), 0, 0, 0, 0, x, y);
   XFlush(display_);
-  while(true)
+  /*while(true)
   {
     XEvent event;
     memset(&event, 0x00, sizeof(event));
@@ -124,7 +124,7 @@ void DisplayDevice::moveTo(int x, int y)
     if(event.xbutton.x == x && event.xbutton.y == y)
       break;
     usleep(10);
-  }
+  }*/
 }
 
 void DisplayDevice::click()

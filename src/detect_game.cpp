@@ -21,16 +21,21 @@
 namespace bbs
 {
 
-DetectGame::DetectGame(std::string const& motif)
+DetectGame::DetectGame()
+{
+}
+
+bool DetectGame::loadMotif(std::string const& motif)
 {
   tmpl_ = cv::imread(motif);
-  if(!tmpl_.data)
-      throw std::string("No motif file found !");
+  return tmpl_.data;
 }
 
 cv::Rect DetectGame::run(cv::Mat const& screenshot)
 {
   if(!screenshot.data)
+    return cv::Rect();
+  if(!tmpl_.data)
     return cv::Rect();
 
   cv::Mat result;

@@ -41,7 +41,7 @@ bool DetectBoard::run(cv::Mat const& screen_game, Board &board)
   board.height = screen_game.size().height;
 
   // this is the player settings
-  board.player.point.x = 211;
+  board.player.point.x = 210;
   board.player.point.y = 346;
   board.player.type = hue.at<unsigned char>(board.player.point.y, board.player.point.x);
 

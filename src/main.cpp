@@ -30,7 +30,16 @@ int main()
   // instance use to take screenshot and control the mouse
   bbs::DisplayDevice display_device;
   // use to detect the area of the game
-  bbs::DetectGame game_detector("motif.png");
+  bbs::DetectGame game_detector;
+  try
+  {
+      game_detector.loadMotif("motif.png");
+  }
+  catch( ... )
+  {
+      std::cerr<<"motif.png not found ..."<<std::endl;
+  }
+
   // convert the image to a board instance
   bbs::DetectBoard board_detector;
   // take decisions
@@ -39,10 +48,9 @@ int main()
   bbs::Board board;
   bbs::Solver::Solution solution;
 
-  int counter = 0;
   while(1)
   {
-    // capture the entire screen and try to detect the game
+    // take full desktop screenshot
     cv::Mat screenshot = display_device.capture();
     cv::Rect game_rect = game_detector.run(screenshot);
 
@@ -51,48 +59,55 @@ int main()
     {
       while(1)
       {
+
         cv::Mat screenshot = display_device.capture(game_rect);
+        cv::imwrite("/home/jerome/test.png", screenshot);
+
         if(board_detector.run(screenshot, board) == false)
         {
-          //cv::waitKey(4000);
           break;
         }
         // take a decision !
         solution = solver.run(board);
 
-        // and apply
+        //// and apply
         display_device.mouseMoveAndClick(
               game_rect.x + board.player.point.x + 100 * std::cos(solution.angle),
               game_rect.y + board.player.point.y + 100 * std::sin(solution.angle));
 
-       // std::stringstream ss;
-       // ss << "./out/"<<counter++<<".png";
-       // board.drawBall(screenshot);
-       // solver.draw(screenshot, solution, board);
-       // cv::imwrite(ss.str(), screenshot);
-        int overloop = 0;
-        while(1)
-        {
-            screenshot = display_device.capture(game_rect);
-          double angle = board_detector.getPlayerAngle(screenshot);
-       // std::stringstream ss;
-       // ss << "./out/"<<counter++<<".png";
-       // board.drawBall(screenshot);
-       // solver.draw(screenshot, solution, board);
-       // cv::imwrite(ss.str(), screenshot);
-          if(std::fabs(solution.angle-angle) < 0.1)
-            break;
-          usleep(20);
-          if(overloop++ > 15)
-          {
-            std::cerr<<"oups error angle ..."<<std::endl;
-            std::cerr<<"solution angle : "<<solution.angle<<" and target angle :"<<angle<<std::endl;
-            break;
-          }
-        }
-        display_device.click();
+              usleep(10000);
+       screenshot = display_device.capture(game_rect);
+       display_device.click();
+
+       board.drawBall(screenshot);
+       solver.draw(screenshot, solution, board);
+       cv::imshow("game", screenshot);
+       cv::waitKey(1);
+       //// cv::imwrite(ss.str(), screenshot);
+        //int overloop = 0;
+        //while(1)
+        //{
+        //    screenshot = display_device.capture(game_rect);
+        //  double angle = board_detector.getPlayerAngle(screenshot);
+       //// std::stringstream ss;
+       //// ss << "./out/"<<counter++<<".png";
+       //// board.drawBall(screenshot);
+       //// solver.draw(screenshot, solution, board);
+       //// cv::imwrite(ss.str(), screenshot);
+        //  if(std::fabs(solution.angle-angle) < 0.1)
+        //    break;
+        //  usleep(20);
+        //  if(overloop++ > 15)
+        //  {
+        //    std::cerr<<"oups error angle ..."<<std::endl;
+        //    std::cerr<<"solution angle : "<<solution.angle<<" and target angle :"<<angle<<std::endl;
+        //    break;
+        //  }
+        //}
+        //
       }
     }
+    cv::waitKey(1000);
   }
   return 0;
 }
@@ -119,4 +134,3 @@ int main()
 //    if(u == 1048603)
 //      return 0;
 //  }
-

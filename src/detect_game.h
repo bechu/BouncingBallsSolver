@@ -36,7 +36,12 @@ public:
     ////////////////////////////////////////////////////////////
     /// @brief the motif if the part of the game board
     ////////////////////////////////////////////////////////////
-    DetectGame(std::string const& motif);
+    DetectGame();
+
+    ////////////////////////////////////////////////////////////
+    /// @brief load the motif (image ref)
+    ////////////////////////////////////////////////////////////
+    bool loadMotif(std::string const& motif);
 
     ////////////////////////////////////////////////////////////
     /// @brief try to find a source_image similar zone
@@ -46,9 +51,9 @@ private:
     ///! threshold
     constexpr static int kThreshold = 20;
     ///! game width
-    constexpr static int kGameWidth = 422;
+    constexpr static int kGameWidth = 420;
     ///! game height
-    constexpr static int kGameHeight = 260;
+    constexpr static int kGameHeight = 290;
 
     ///! instance to keep the motif
     cv::Mat tmpl_;
